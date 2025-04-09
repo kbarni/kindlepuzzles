@@ -6,7 +6,7 @@ Original webpage and more info here: https://www.chiark.greenend.org.uk/~sgtatha
 
 ## Building for Kindle
 
-git clone 
+git clone https://github.com/kbarni/kindlepuzzles.git
 cd kindlepuzzles
 mkdir build
 cd build
@@ -19,4 +19,4 @@ I find that this collection is well suited for playing on Kindle.
 
 Some games however won't work or are difficult to play. Some need keyboard and some need right click to play correctly.
 
-*Note:* Work on adding a keyboard is already on its way, but currently the window doesn't resize itself correctly.
+*Note:* Work on adding a keyboard is already on its way, but currently the window doesn't resize itself correctly. Feel free to add new features and create pull requests, I'll update the code.
