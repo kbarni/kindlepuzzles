@@ -1,0 +1,64 @@
+{
+	"items": [
+	{
+		"name": "Kindle Puzzle Collection",
+		"priority": 0,
+		"items": [
+		{
+			"name": "Pegs Solitaire",
+			"priority": 2,
+			"action": "/mnt/us/puzzles/pegs",
+			"status": false
+		},
+		{
+			"name": "Slant",
+			"priority": 2,
+			"action": "/mnt/us/puzzles/slant",
+			"status": false
+		},
+        {
+			"name": "Tents",
+			"priority": 2,
+			"action": "/mnt/us/puzzles/tents",
+			"status": false
+		},
+		{
+			"name": "Net",
+			"priority": 2,
+			"action": "/mnt/us/puzzles/net",
+			"status": false
+		},
+		{
+			"name": "NetSlide",
+			"priority": 2,
+			"action": "/mnt/us/puzzles/netslide",
+			"status": false
+		},
+		{
+			"name": "Fifteen",
+			"priority": 2,
+			"action": "/mnt/us/puzzles/fifteen",
+			"status": false
+		},
+		{
+			"name": "Sixteen",
+			"priority": 2,
+			"action": "/mnt/us/puzzles/sixteen",
+			"status": false
+		},
+		{
+			"name": "Same game",
+			"priority": 2,
+			"action": "/mnt/us/puzzles/same",
+			"status": false
+		},
+		{
+			"name": "Maps (4 color)",
+			"priority": 2,
+			"action": "/mnt/us/puzzles/maps",
+			"status": false
+		}
+    	]
+	}
+	]
+}
