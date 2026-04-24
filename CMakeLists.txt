@@ -291,3 +291,12 @@ if(build_cli_programs)
 endif()
 
 build_extras()
+
+if(UNIX)
+  add_executable(launcher gtk-launcher/launcher.c)
+  target_include_directories(launcher PRIVATE ${GTK_INCLUDE_DIRS})
+  target_link_libraries(launcher PRIVATE ${GTK_LIBRARIES})
+  target_compile_options(launcher PRIVATE
+    ${GTK_CFLAGS_OTHER}
+    -Wno-deprecated-declarations)  # gdk_pixbuf_from_pixdata is GTK2-era API
+endif()

@@ -7,55 +7,55 @@
 		{
 			"name": "Pegs Solitaire",
 			"priority": 2,
-			"action": "/mnt/us/puzzles/pegs",
+			"action": "./run.sh pegs",
 			"status": false
 		},
 		{
 			"name": "Slant",
 			"priority": 2,
-			"action": "/mnt/us/puzzles/slant",
+			"action": "./run.sh slant",
 			"status": false
 		},
         {
 			"name": "Tents",
 			"priority": 2,
-			"action": "/mnt/us/puzzles/tents",
+			"action": "./run.sh tents",
 			"status": false
 		},
 		{
 			"name": "Net",
 			"priority": 2,
-			"action": "/mnt/us/puzzles/net",
+			"action": "./run.sh net",
 			"status": false
 		},
 		{
 			"name": "NetSlide",
 			"priority": 2,
-			"action": "/mnt/us/puzzles/netslide",
+			"action": "./run.sh netslide",
 			"status": false
 		},
 		{
 			"name": "Fifteen",
 			"priority": 2,
-			"action": "/mnt/us/puzzles/fifteen",
+			"action": "./run.sh fifteen",
 			"status": false
 		},
 		{
 			"name": "Sixteen",
 			"priority": 2,
-			"action": "/mnt/us/puzzles/sixteen",
+			"action": "./run.sh sixteen",
 			"status": false
 		},
 		{
 			"name": "Same game",
 			"priority": 2,
-			"action": "/mnt/us/puzzles/same",
+			"action": "./run.sh same",
 			"status": false
 		},
 		{
 			"name": "Maps (4 color)",
 			"priority": 2,
-			"action": "/mnt/us/puzzles/maps",
+			"action": "./run.sh maps",
 			"status": false
 		}
     	]

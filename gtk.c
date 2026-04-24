@@ -148,6 +148,10 @@ static void changed_preset(frontend *fe);
 static void load_prefs(frontend *fe);
 static char *save_prefs(frontend *fe);
 
+enum { MB_OK, MB_YESNO };
+bool message_box(GtkWidget *parent, const char *title, const char *msg,
+                 bool centre, int type);
+
 struct font {
 #ifdef USE_PANGO
     PangoFontDescription *desc;
@@ -221,6 +225,7 @@ struct frontend {
     int paste_data_len;
     int pw, ph, ps;  /* pixmap size (w, h are area size, s is GDK scale) */
     int ox, oy;                        /* offset of pixmap in drawing area */
+    int last_status;                   /* for win dialog */
 #ifdef OLD_FILESEL
     char *filesel_name;
 #endif
@@ -337,10 +342,17 @@ static void gtk_status_bar(drawing *dr, const char *text)
     if (fe->headless)
         return;
 
-    assert(fe->statusbar);
+    if (fe->statusbar) {
+        gtk_statusbar_pop(GTK_STATUSBAR(fe->statusbar), fe->statusctx);
+        gtk_statusbar_push(GTK_STATUSBAR(fe->statusbar), fe->statusctx, text);
+    }
 
-    gtk_statusbar_pop(GTK_STATUSBAR(fe->statusbar), fe->statusctx);
-    gtk_statusbar_push(GTK_STATUSBAR(fe->statusbar), fe->statusctx, text);
+    if (midend_status(fe->me) == 1 && fe->last_status == 0) {
+        fe->last_status = 1;
+        message_box(fe->window, thegame.name, "Congratulations! You won!", false, MB_OK);
+    } else {
+        fe->last_status = midend_status(fe->me);
+    }
 }
 
 /* ----------------------------------------------------------------------
@@ -1810,8 +1822,6 @@ static gint win_key_press(GtkWidget *widget, GdkEventKey *event, gpointer data)
     return false;
 }
 
-enum { MB_OK, MB_YESNO };
-
 static void align_label(GtkLabel *label, double x, double y)
 {
 #if GTK_CHECK_VERSION(3,16,0)
@@ -1830,8 +1840,8 @@ static void align_label(GtkLabel *label, double x, double y)
 }
 
 #if GTK_CHECK_VERSION(3,0,0)
-static bool message_box(GtkWidget *parent, const char *title, const char *msg,
-                        bool centre, int type)
+bool message_box(GtkWidget *parent, const char *title, const char *msg,
+                 bool centre, int type)
 {
     GtkWidget *window;
     gint ret;
@@ -2300,6 +2310,8 @@ static void changed_preset(frontend *fe)
         bool enabled = midend_can_format_as_text_now(fe->me);
 	gtk_widget_set_sensitive(fe->copy_menu_item, enabled);
     }
+
+    fe->last_status = midend_status(fe->me);
 }
 
 #if !GTK_CHECK_VERSION(3,0,0)
@@ -3627,6 +3639,9 @@ static frontend *new_window(
     menu = gtk_menu_new();
     gtk_menu_item_set_submenu(GTK_MENU_ITEM(menuitem), menu);
 
+    add_menu_ui_item(fe, GTK_CONTAINER(menu), "Exit", UI_QUIT, 'q', 0);
+    add_menu_separator(GTK_CONTAINER(menu));
+
     add_menu_ui_item(fe, GTK_CONTAINER(menu), "New", UI_NEWGAME, 'n', 0);
 
     menuitem = gtk_menu_item_new_with_label("Restart");
@@ -3739,9 +3754,6 @@ static frontend *new_window(
     g_signal_connect(G_OBJECT(menuitem), "activate",
                      G_CALLBACK(menu_config_event), fe);
     gtk_widget_show(menuitem);
-
-    add_menu_separator(GTK_CONTAINER(menu));
-    add_menu_ui_item(fe, GTK_CONTAINER(menu), "Exit", UI_QUIT, 'q', 0);
 
     menuitem = gtk_menu_item_new_with_mnemonic("_Help");
     gtk_container_add(GTK_CONTAINER(fe->menubar), menuitem);
@@ -3942,6 +3954,7 @@ static frontend *new_window(
 
     set_window_background(fe, 0);
 
+    fe->last_status = midend_status(fe->me);
     return fe;
 }
 
